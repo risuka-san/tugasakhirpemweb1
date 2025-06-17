@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ULM SAPA</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f2f5;
+    }
+
+    .header {
+      background-color: black;
+      color: white;
+      position: sticky;
+      top: 0;
+      padding: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: 20px;
+      font-weight: bold;
+    }
+
+    .header img {
+      width: 30px;
+      height: 30px;
+    }
+
+    .hamburger {
+      font-size: 24px;
+      cursor: pointer;
+      margin-right: 20px;
+      background: none;
+      border: none;
+      color: white;
+    }
+
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #222;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+      z-index: 1000;
+    }
+
+    .sidebar a {
+      padding: 12px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #575757;
+    }
+
+    .sidebar .closebtn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 28px;
+      color: white;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .detail-box {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .detail-box h2 {
+      margin-top: 0;
+    }
+
+    .detail-box p {
+      margin: 10px 0;
+    }
+
+    .label {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <button class="hamburger" onclick="openSidebar()">☰</button>
+    <div class="header-left">
+      <span>UNIVERSITAS LAMBUNG MANGKURAT</span>
+      <img src="logo_ulm.webp" alt="Universitas Lambung Mangkurat">
+    </div>
+  </div>
+
+  <div id="mySidebar" class="sidebar">
+    <button class="closebtn" onclick="closeSidebar()">×</button>
+    <a href="http://127.0.0.1:5500/liat%20data%20masuk%20(user)/pemberitahuan.html">Pemberitahuan</a>
+    <a href="http://127.0.0.1:5500/melaporkan/index_lamanPelaporan.html">Buat Pelaporan</a>
+    <a href="http://127.0.0.1:5500/liat%20data%20masuk%20(user)/data_tersedia.html">Lihat Semua Pelaporan</a>
+    <a href="http://127.0.0.1:5500/liat%20data%20masuk%20(user)/data_diproses.html">Pelaporan Diproses</a>
+    <a href="http://127.0.0.1:5500/liat%20data%20masuk%20(user)/data_selesai.html">Pelaporan Selesai</a>
+  </div>
+
+  <div class="container">
+    <div class="detail-box">
+      <h2>Detail Laporan</h2>
+      <div id="detailContainer">Memuat data...</div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDJZbRxUqljZrsv7IcSyQx8KiCw5oO2dg4",
+      authDomain: "tugaspraktik-7e0c8.firebaseapp.com",
+      databaseURL: "https://tugaspraktik-7e0c8-default-rtdb.firebaseio.com",
+      projectId: "tugaspraktik-7e0c8",
+      storageBucket: "tugaspraktik-7e0c8.appspot.com",
+      messagingSenderId: "403693288823",
+      appId: "1:403693288823:web:5fde43fcf50e826c5df572"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    const container = document.getElementById("detailContainer");
+
+    function konversiUrgensi(nilai) {
+      switch (nilai) {
+        case "sangat_urgensi": return "Tinggi";
+        case "urgensi": return "Sedang";
+        case "kurang_urgensi": return "Rendah";
+        default: return "-";
+      }
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    if (id) {
+      const detailRef = ref(db, "pengaduan/" + id);
+
+      onValue(detailRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          container.innerHTML = `
+            <p><strong>Judul:</strong> ${data.judul}</p>
+            <p><strong>Waktu:</strong> ${data.waktu}</p>
+            <p><strong>Urgensi:</strong> ${konversiUrgensi(data.urgensi)}</p>
+            <p><strong>Lokasi:</strong> ${data.lokasi}</p>
+            <p><strong>Isi:</strong> ${data.deskripsi}</p>
+            <p><strong>Progres:</strong> ${data.isi}</p>
+          `;
+        } else {
+          container.innerHTML = "<p>Data tidak ditemukan.</p>";
+        }
+      });
+    } else {
+      container.innerHTML = "<p>ID tidak ditemukan di URL.</p>";
+    }
+
+    window.openSidebar = function () {
+      document.getElementById("mySidebar").style.width = "250px";
+    };
+
+    window.closeSidebar = function () {
+      document.getElementById("mySidebar").style.width = "0";
+    };
+  </script>
+</body>
+</html>

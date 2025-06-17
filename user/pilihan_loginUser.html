@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ULM SAPA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: white;
+        }
+
+        .header {
+            background-color: black;
+            color: white;
+            position: sticky;
+            top: 0;
+            padding: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 13px;
+            z-index: 10;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .background img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(50%);
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            width: 300px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            position: relative;
+            margin-top: 0px;
+        }
+
+        .login-box .avatar {
+            width: 80px;
+            height: 80px;
+            background: #0c2340;
+            border-radius: 50%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -70px;
+            margin-bottom: 20px;
+        }
+
+        .login-box .avatar::before {
+            content: "👤";
+            font-size: 40px;
+            color: white;
+        }
+
+        .login-box input[type="text"],
+        .login-box input[type="password"] {
+            width: 100%;
+            padding: 12px 40px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .login-box input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .login-box .icon {
+            position: absolute;
+            left: 45px;
+            top: 126px;
+            color: white;
+        }
+
+        .login-box .icon.lock {
+            top: 186px;
+        }
+
+        .login-box .options {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0 20px;
+            font-size: 0.9rem;
+            color: white;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 12px;
+            background: #0c2340;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .login-box button:hover {
+            background: #061528;
+        }
+
+        .letak {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 70px);
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .content {
+                flex-direction: column;
+                align-items: center;
+                margin: 80px 20px;
+                gap: 15px;
+            }
+
+            .logo-right {
+                order: -1;
+                margin-bottom: 15px;
+            }
+
+            .logo-right img {
+                max-width: 150px;
+                border-radius: 8px;
+            }
+
+            .text-left h1 {
+                font-size: 2rem;
+                text-align: center;
+            }
+
+            .text-left p {
+                font-size: 1rem;
+                text-align: center;
+            }
+
+            .button-container {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .btn {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <img src="logo_ulm.webp" alt="Universitas Lambung Mangkurat" width="45" height="45" />
+            <span style="font-size: 1.2rem; font-weight: bold;">UNIVERSITAS LAMBUNG MANGKURAT</span>
+        </div>
+    </div>
+
+    <div class="background">
+        <img src="ulm.jpg" alt="Background ULM" />
+    </div>
+
+    <div class="letak">
+        <div class="login-box">
+            <div class="avatar"></div>
+            <button onclick="window.location.href='http://127.0.0.1:5500/user/user_lama.html'">Sudah Punya Akun</button>
+            <br><br>
+            <button onclick="window.location.href='http://127.0.0.1:5500/user/user_baru.html'">Belum Punya Akun</button>
+        </div>
+    </div>
+</body>
+</html>

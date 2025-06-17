@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ULM SAPA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: white;
+        }
+        .header {
+            background-color: black;
+            color: white;
+            position: sticky;
+            top: 0;
+            padding: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 13px;
+            z-index: 10;
+        }
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .background img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(50%);
+        }
+        .content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 900px;
+            margin: 120px auto;
+            padding: 0 20px;
+            gap: 20px;
+        }
+        .text-left {
+            flex: 1;
+        }
+        .text-left h1 {
+            font-size: 3rem;
+            margin-bottom: 12px;
+        }
+        .text-left p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+        .logo-right {
+            flex-shrink: 0;
+        }
+        .logo-right img {
+            max-width: 250px;
+            height: auto;
+            border-radius: 10px;
+        }
+        .button-container {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 kolom */
+            gap: 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 16px 24px;
+            background-color: rgb(160, 20, 20);
+            color: white;
+            border-radius: 15px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+            text-align: center;
+            user-select: none;
+        }
+        .btn:hover {
+            background-color: rgb(94, 0, 0);
+        }
+
+        @media (max-width: 600px) {
+            .content {
+                flex-direction: column;
+                align-items: center;
+                margin: 80px 20px;
+                gap: 15px;
+            }
+            .logo-right {
+                order: -1; /* memindahkan logo ke atas */
+                margin-bottom: 15px;
+            }
+            .logo-right img {
+                max-width: 150px;
+                border-radius: 8px;
+            }
+            .text-left h1 {
+                font-size: 2rem;
+                text-align: center;
+            }
+            .text-left p {
+                font-size: 1rem;
+                text-align: center;
+            }
+            .button-container {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .btn {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <img src="logo_ulm.webp" alt="Universitas Lambung Mangkurat" width="45" height="45" />
+            <span style="font-size: 1.2rem; font-weight: bold;">UNIVERSITAS LAMBUNG MANGKURAT</span>
+        </div>
+    </div>
+
+    <div class="background">
+        <img src="ulm.jpg" alt="Background ULM" />
+    </div>
+
+    <div class="content">
+        <div class="text-left">
+            <h1>ULM SAPA</h1>
+            <p>Sistem Aspirasi dan Pengaduan Akademika</p>
+            <div class="button-container">
+                <a href="http://127.0.0.1:5500/user/pilihan_loginUser.html" class="btn">Laporkan Fasilitas</a>
+                <a href="http://127.0.0.1:5500/home/liat_pelaporan.html" class="btn">Melihat Data Pelaporan</a>
+                <a href="http://127.0.0.1:5500/user/pilihan_loginUser.html" class="btn">Log In Pengguna</a>
+                <a href="http://127.0.0.1:5500/dev/pilihan_loginDev.html" class="btn">Log In Admin</a>
+            </div>
+        </div>
+        <div class="logo-right">
+            <img src="logo_ulm.webp" alt="Logo ULM" />
+        </div>
+    </div>
+</body>
+</html>
